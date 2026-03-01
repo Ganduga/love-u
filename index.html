@@ -118,6 +118,7 @@ h1, p, h2 {
   opacity: 0.9;
 
   border: 1px solid rgba(255,255,255,0.2);
+  position : relative;
 }
 .photo:hover {
   transform: scale(1);
@@ -328,6 +329,23 @@ video {
 body.dim video {
   box-shadow: 0 0 40px rgba(201, 20, 89, 0.8);
 }
+
+
+.collage-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  padding: 12px;
+  text-align: center;
+
+  color: white;
+  font-size: 16px;
+
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+
+  border-radius: 0 0 20px 20px;
+}
 </style>
 </head>
 
@@ -357,8 +375,10 @@ body.dim video {
     <img src="c7.jpg">
     <img src="c8.jpg">
   </div>
-
-  <p>Cuteness overload 😘😍</p>
+<div class="collage-caption">
+    Cuteness overload 😘😍
+  </div>
+  
   <span class="msg">Har photo mein tum hi tum ❤️</span>
 
 </div>
