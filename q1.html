@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Main */
+.container {
+  margin-top: 60px;
+}
+
+h1, p, h2 {
+  color: white;
+}
+
+/* Buttons */
+.btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+#yes { background: #ff4d6d; color: white; }
+#no {
+  background: #333;
+  color: white;
+  position: absolute;
+}
+
+/* LOVE MESSAGE */
+#loveMessage {
+  display: none;
+  font-size: 30px;
+  color: white;
+}
+
+/* PHOTO SECTION */
+.gallery {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.photo {
+  width: 200px;
+  height: 250px;
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.photo img {
+  width: 100%;
+  height: 85%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.photo p {
+  color: black;
+  font-size: 14px;
+}
+
+/* Tilt Effect */
+.photo:hover {
+  transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+}
+
+/* LIGHTBOX (Zoom) */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  width: 80%;
+  max-width: 400px;
+  border-radius: 15px;
+}
+
+/* Swipe hint */
+.swipe-text {
+  color: white;
+  margin-top: 10px;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Hey [Her Name] ❤️</h1>
+  <p>You are the best thing in my life 💖</p>
+
+    <div class="gallery" id="gallery">
+    
+    <div class="photo" onclick="openImage(this)">
+      <img src="photo1.jpg">
+      <p>Our first memory ❤️</p>
+    </div>
+
+    <div class="photo" onclick="openImage(this)">
+      <img src="photo2.jpg">
+      <p>Best day ever 😍</p>
+    </div>
+
+    <div class="photo" onclick="openImage(this)">
+      <img src="photo3.jpg">
+      <p>You & Me 💖</p>
+    </div>
+
+  </div>
+
+
+  <h2>Will you be mine forever? 😘</h2>
+
+  <button id="yes" class="btn" onclick="yesClicked()">YES 💖</button>
+  <button id="no" class="btn">NO 😄</button>
+
+  <div id="loveMessage">I KNEW IT 😍❤️</div>
+
+  <!-- PHOTO SECTION -->
+  
+
+  <div class="swipe-text">👉 Swipe photos (mobile)</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeImage()">
+  <img id="lightboxImg">
+</div>
+
+<script>
+/* Runaway NO button */
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+/* YES click */
+function yesClicked() {
+  document.getElementById("loveMessage").style.display = "block";
+  startHearts();
+}
+
+/* Floating hearts */
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+
+/* LIGHTBOX */
+function openImage(element) {
+  const imgSrc = element.querySelector("img").src;
+  document.getElementById("lightboxImg").src = imgSrc;
+  document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("lightbox").style.display = "none";
+}
+
+/* SWIPE FEATURE */
+let startX = 0;
+
+document.getElementById("gallery").addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+document.getElementById("gallery").addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX > endX + 50) {
+    alert("Next memory ❤️");
+  } else if (startX < endX - 50) {
+    alert("Previous memory 💖");
+  }
+});
+</script>
+
+</body>
+</html> 1            

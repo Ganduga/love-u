@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+
+  background: url('bg.jpg') no-repeat center center/cover;
+}
+
+/* LIGHT overlay instead of heavy blur */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25); /* less dark */
+  backdrop-filter: blur(3px);   /* less blur */
+  z-index: -1;
+}
+
+/* Dark romantic overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* darkness */
+  backdrop-filter: blur(8px); /* blur effect 🔥 */
+  z-index: -1;
+}
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  animation: float 5s linear infinite;
+}
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* TEXT */
+h1, p, h2 {
+  color: white;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 20px;
+}
+#yes { background: #ff4d6d; color: white; }
+#no {
+  background: #333;
+  color: white;
+  position: absolute;
+}
+
+/* LOVE MESSAGE */
+#loveMessage {
+  display: none;
+  font-size: 30px;
+  color: white;
+}
+
+/* 🔥 VERTICAL GALLERY (TRENDING) */
+.gallery {
+  height: 100vh;   /* full screen */
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Hide scrollbar (clean look) */
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* PHOTO CARD */
+.photo {
+  width: 90%;              /* full width on mobile */
+  max-width: 400px;
+  height: 500px;           /* bigger height */
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  scroll-snap-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  transition: 0.4s;
+}
+.photo {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+.photo:hover {
+  transform: scale(1);
+  opacity: 1;
+}
+/* IMAGE */
+.photo img {
+  width: 100%;
+  height: 85%;
+  object-fit: cover;   /* fills properly */
+}
+
+/* CAPTION */
+.photo p {
+  color: black;
+  font-size: 16px;
+  padding: 10px;
+}
+
+/* HOVER EFFECT (GLOW + SCALE) */
+.photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255,255,255,0.8);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.lightbox img {
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+}
+
+/* 🎬 VIDEO SECTION */
+.video-section {
+  margin-top: 50px;
+}
+
+video {
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+h1, h2, p {
+  color: white;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Hey [Her Name] ❤️</h1>
+<p>You are the best thing in my life 💖</p>
+
+<!-- 🔥 VERTICAL PHOTO SECTION -->
+<div class="gallery">
+
+  <div class="photo" onclick="openImage(this)">
+    <img src="photo1.jpg">
+    <p>Our first memory ❤️</p>
+  </div>
+
+  <div class="photo" onclick="openImage(this)">
+    <img src="photo2.jpg">
+    <p>Best day ever 😍</p>
+  </div>
+
+  <div class="photo" onclick="openImage(this)">
+    <img src="photo3.jpg">
+    <p>You & Me 💖</p>
+  </div>
+
+</div>
+
+<!-- 🎬 VIDEO SECTION -->
+<div class="video-section">
+  <h2>Our Special Video 🎥</h2>
+
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<h2>Will you be mine forever? 😘</h2>
+
+<button id="yes" class="btn" onclick="yesClicked()">YES 💖</button>
+<button id="no" class="btn">NO 😄</button>
+
+<div id="loveMessage">I KNEW IT 😍❤️</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeImage()">
+  <img id="lightboxImg">
+</div>
+
+<script>
+/* Runaway NO button */
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+/* YES */
+function yesClicked() {
+  document.getElementById("loveMessage").style.display = "block";
+  startHearts();
+}
+
+/* HEARTS */
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+
+/* LIGHTBOX */
+function openImage(el) {
+  document.getElementById("lightboxImg").src =
+    el.querySelector("img").src;
+  document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("lightbox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
