@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 <meta charset="UTF-8">
 <title>For You ❤️</title>
@@ -119,17 +120,22 @@ h1, p, h2 {
   transition: 0.4s;
 }
 .photo {
-  transform: scale(0.9);
-  opacity: 0.7;
-   width: 90%;
+  width: 90%;
   max-width: 400px;
 
-  aspect-ratio: 3 / 4; /* 🔥 perfect mobile ratio */
-  
+  aspect-ratio: 3 / 4; /* perfect mobile card */
+
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   overflow: hidden;
+
+  scroll-snap-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+
+  transition: 0.4s;
+  transform: scale(0.9);
+  opacity: 0.8;
 }
 
 .photo:hover {
@@ -139,11 +145,10 @@ h1, p, h2 {
 /* IMAGE */
 .photo img {
   width: 100%;
-  height: 85%;
-  object-fit: cover;   
-   display: block;
-  border-radius: 20px;
-  /* fills properly */
+  height: 100%;   /* 🔥 FULL FIX */
+  object-fit: cover;
+
+  display: block;
 }
 
 /* CAPTION */
