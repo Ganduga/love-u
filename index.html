@@ -345,11 +345,55 @@ body.dim video {
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
 
   border-radius: 0 0 20px 20px;
+
+
+
+
+  #entryScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: black; /* romantic dark start */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 5000;
+}
+
+#openBtn {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+
+  background: #ff4d6d;
+  color: white;
+
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,100,150,0.8);
+
+  animation: pulse 1.5s infinite;
+}
+
+/* 🔥 button glow animation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 }
 </style>
 </head>
 
 <body>
+
+
+
+
 
 <h1>Rashi… listen na❤️</h1>
 <p>"You mean everything to me… 💖"</p>
@@ -451,6 +495,12 @@ function yesClicked() {
 
   startHearts();
   createConfetti();
+   const song = document.getElementById("saiyaaraSong");
+  song.play();
+
+  const video = document.querySelector("video");
+  video.muted = true;
+  
 }
 
 /* HEARTS */
@@ -652,6 +702,6 @@ video.addEventListener("ended", () => {
   document.body.classList.remove("dim");
 });
 </script>
-
+<audio id="saiyaaraSong" src="saiyaara.mp3"></audio>
 </body>
 </html>
