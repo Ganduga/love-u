@@ -496,10 +496,23 @@ function yesClicked() {
   startHearts();
   createConfetti();
    const song = document.getElementById("saiyaaraSong");
-  song.play();
+  song.play();  
+
 
   const video = document.querySelector("video");
   video.muted = true;
+  setTimeout(() => {
+    let fade = setInterval(() => {
+      if (song.volume > 0.05) {
+        song.volume -= 0.05;
+      } else {
+        clearInterval(fade);
+        song.pause();
+        song.currentTime = 0;
+        song.volume = 1; // reset for next time
+      }
+    }, 200);
+  }, 25000); // 25 seconds
   
 }
 
